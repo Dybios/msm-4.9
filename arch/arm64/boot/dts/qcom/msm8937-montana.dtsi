@@ -120,7 +120,6 @@
 		dma-names = "tx", "rx";
 	};
 
-
 	qcom,msm-thermal {
 		qcom,config-info = "montana";
 	};
@@ -444,5 +443,10 @@
 
 &pmi_haptic {
 	qcom,vmax-mv = <2552>;
+};
+
+&spi_4 { /* BLSP1 QUP4 */
+    status = "disabled";
+    /delete-node/ stml0xx@0;
 };
 
