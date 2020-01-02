@@ -44,6 +44,11 @@ ifeq ($(KERNEL_BUILD), 0)
 		export
 		INCS    +=  -include $(AUDIO_ROOT)/config/sdm450autoconf.h
 	endif
+	ifeq ($(CONFIG_ARCH_MSM8937), y)
+		include $(AUDIO_ROOT)/config/msm8937.conf
+		export
+		INCS    +=  -include $(AUDIO_ROOT)/config/msm8937.h
+	endif
 endif
 
 # As per target team, build is done as follows:
@@ -164,7 +169,6 @@ CDEFINES +=	-DANI_LITTLE_BYTE_ENDIAN \
 		-DANI_OS_TYPE_ANDROID=6 \
 		-DPTT_SOCK_SVC_ENABLE \
 		-Wall\
-		-Werror\
 		-D__linux__
 
 KBUILD_CPPFLAGS += $(CDEFINES)
@@ -224,6 +228,8 @@ mbhc_dlkm-y := $(MBHC_OBJS)
 
 obj-$(CONFIG_SND_SOC_MSM_HDMI_CODEC_RX) += hdmi_dlkm.o
 hdmi_dlkm-y := $(HDMICODEC_OBJS)
+
+obj-$(CONFIG_SND_SOC_OPALUM) =  ospl2xx.o
 
 # inject some build related information
 DEFINES += -DBUILD_TIMESTAMP=\"$(shell date -u +'%Y-%m-%dT%H:%M:%SZ')\"
